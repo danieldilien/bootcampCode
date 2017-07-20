@@ -19,10 +19,9 @@ public class FirstSeleniumTest {
 
     @Test
     public void logInSuccesFull(){
-        //Go to homepage
-        goToUrl("https://techblog.polteq.com/testshop/index.php");
-
-        //Login steps
+        setUp();
+        goToHomePage();
+        goToLoginPage();
         loginFlow();
 
         //Assertion on text
@@ -36,17 +35,22 @@ public class FirstSeleniumTest {
         //Close
         killDriver();
     }
-
-    public void goToUrl(String url){
+    public void setUp(){
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
-        driver.get(url);
+    }
+    public void goToHomePage(){
+        driver.get("https://techblog.polteq.com/testshop/index.php");
+    }
+
+    public void goToLoginPage(){
+        driver.findElement(By.className("login")).click();
+        //Assertion on text
+        String headingText = driver.findElement(By.className("page-heading")).getText();
+        assertThat(headingText).as("Logintekst na klikken op Sign in").contains("AUTHENTICATION");
     }
 
     public void loginFlow(){
-        //Click on link 'Sign in'
-        driver.findElement(By.className("login")).click();
-
         //Fill in e-mail
         driver.findElement(By.id("email")).sendKeys("tester@test.com");
 
