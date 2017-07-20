@@ -14,11 +14,16 @@ public class TestShopScenario {
 
     protected WebDriver driver;
     protected WebDriverWait wait;
+    protected String email;
+    protected String pwd;
+
     @BeforeMethod
     public void setUpChromeDriver(){
         ChromeDriverManager.getInstance().setup();
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 5);
+        email = "daniel.dilien@polteq.com";
+        pwd = "Test123";
     }
 /*
     @AfterMethod

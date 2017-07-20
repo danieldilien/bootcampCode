@@ -24,16 +24,18 @@ public class LineairScripten extends TestShopScenario{
     @Test
     public void logInSuccesFull(){
         goToHomePage();
+        maximizeWindow();
         goToLoginPage();
         loginFlow();
         assertSuccesfullLogin();
+        goToHomePage();
     }
     @Test
     public void logOutSuccesFull(){
-        maximizeWindow();
         logInSuccesFull();
         logoutFlow();
         assertSuccesfullLogout();
+        goToHomePage();
     }
     @Test
     public void fillCartTest(){
@@ -54,6 +56,26 @@ public class LineairScripten extends TestShopScenario{
         driver.findElement(By.className("icon-trash")).click();
         goToHomePage();
         assertThat(checkNumberOfCartItems()).isEqualTo("0");
+    }
+    @Test
+    public void modifyPersonalInfoTest(){
+        logInSuccesFull();
+        goToMyCustomerAccount();
+        driver.findElement(By.className("icon-user")).click();
+        String firstName = driver.findElement(By.id("firstname")).getAttribute("value");
+        if(firstName.equals("Daniel"))
+            firstName = "Danny";
+        else
+            firstName = "Daniel";
+        driver.findElement(By.id("firstname")).clear();
+        driver.findElement(By.id("firstname")).sendKeys(firstName);
+        driver.findElement(By.id("old_passwd")).clear();
+        driver.findElement(By.id("old_passwd")).sendKeys(pwd);
+        driver.findElement(By.name("submitIdentity")).click();
+
+        String alertText = driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/p")).getText();
+        assertThat(alertText).contains("Your personal information has been successfully updated");
+        goToHomePage();
     }
 
     public String checkNumberOfCartItems(){
@@ -76,8 +98,8 @@ public class LineairScripten extends TestShopScenario{
         assertThat(headingText).as("Logintekst na klikken op Sign in").contains("AUTHENTICATION");
     }
     public void loginFlow(){
-        driver.findElement(By.id("email")).sendKeys("tester@test.com");
-        driver.findElement(By.id("passwd")).sendKeys("1qazxsw2");
+        driver.findElement(By.id("email")).sendKeys(email);
+        driver.findElement(By.id("passwd")).sendKeys(pwd);
         driver.findElement(By.id("SubmitLogin")).click();
     }
     public void logoutFlow(){
@@ -103,6 +125,9 @@ public class LineairScripten extends TestShopScenario{
     }
     public void goToShoppingCart(){
         driver.findElement(By.xpath("//*[@title='View my shopping cart']")).click();
+    }
+    public void goToMyCustomerAccount(){
+        driver.findElement(By.xpath("//*[@title='View my customer account']")).click();
     }
     public void maximizeWindow() {
         driver.manage().window().maximize();
