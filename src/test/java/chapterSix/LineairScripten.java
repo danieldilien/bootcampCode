@@ -7,12 +7,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,15 +70,25 @@ public class LineairScripten extends TestShopScenario{
             firstName = "Danny";
         else
             firstName = "Daniel";
-        driver.findElement(By.id("firstname")).clear();
-        driver.findElement(By.id("firstname")).sendKeys(firstName);
-        driver.findElement(By.id("old_passwd")).clear();
-        driver.findElement(By.id("old_passwd")).sendKeys(pwd);
-        driver.findElement(By.name("submitIdentity")).click();
+        modifyFirstNameOnCustomerPage(firstName);
 
-        String alertText = driver.findElement(By.xpath("//*[@id=\"center_column\"]/div/p")).getText();
+        String alertText = driver.findElement(By.xpath("//*[@id='center_column']/div/p")).getText();
         assertThat(alertText).contains("Your personal information has been successfully updated");
+
         goToHomePage();
+    }
+    @Test
+    public void validateSupplierProductTest(){
+        goToHomePage();
+        maximizeWindow();
+        goToAppleSupplier();
+        List<WebElement> elements = driver.findElements(By.xpath(".//*[@id='center_column']"));
+        boolean macAir = false;
+        for(WebElement e : elements) {
+            if(e.getText().contains("MacBook Air"))
+            macAir = true;
+        }
+        assertThat(macAir).isTrue();
     }
 
     public String checkNumberOfCartItems(){
@@ -128,6 +141,16 @@ public class LineairScripten extends TestShopScenario{
     }
     public void goToMyCustomerAccount(){
         driver.findElement(By.xpath("//*[@title='View my customer account']")).click();
+    }
+    public void goToAppleSupplier(){
+        driver.findElement(By.xpath("//*[@title='More about AppleStore']")).click();
+    }
+    public void modifyFirstNameOnCustomerPage(String firstName){
+        driver.findElement(By.id("firstname")).clear();
+        driver.findElement(By.id("firstname")).sendKeys(firstName);
+        driver.findElement(By.id("old_passwd")).clear();
+        driver.findElement(By.id("old_passwd")).sendKeys(pwd);
+        driver.findElement(By.name("submitIdentity")).click();
     }
     public void maximizeWindow() {
         driver.manage().window().maximize();
