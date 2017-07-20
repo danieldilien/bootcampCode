@@ -8,6 +8,8 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -33,15 +35,27 @@ public class LineairScripten extends TestShopScenario{
         logoutFlow();
         assertSuccesfullLogout();
     }
-
     @Test
     public void fillCartTest(){
         goToHomePage();
         maximizeWindow();
         assertThat(checkNumberOfCartItems()).isEqualTo("0");
-
-
+        clickOnTag("ipod");
+        clickOnProductWithTitle("iPod shuffle");
+        driver.findElement(By.id("add_to_cart")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='layer_cart']/div[1]/div[2]/div[4]/span/span"))).click();
+        goToHomePage();
+        assertThat(checkNumberOfCartItems()).isEqualTo("1");
     }
+    @Test
+    public void emptyCartTest(){
+        fillCartTest();
+        goToShoppingCart();
+        driver.findElement(By.className("icon-trash")).click();
+        goToHomePage();
+        assertThat(checkNumberOfCartItems()).isEqualTo("0");
+    }
+
     public String checkNumberOfCartItems(){
         String number;
 
@@ -76,6 +90,19 @@ public class LineairScripten extends TestShopScenario{
     public void assertSuccesfullLogout(){
         boolean signInButton = driver.findElement(By.className("login")).isDisplayed();
         assertThat(signInButton).as("Log in knop is zichtbaar").isTrue();
+    }
+    public void clickOnTag(String tag){
+        driver.findElement(By.xpath(".//*[@id='tags_block_left']/div/*[contains(text(), '" + tag + "')]")).click();
+        String searchResult = driver.findElement(By.xpath(".//*[@id='center_column']/h1/span[1]")).getText();
+        assertThat(searchResult).contains(tag.toUpperCase());
+    }
+    public void clickOnProductWithTitle(String title){
+        driver.findElement(By.xpath("//*[@class='product-name' and contains(text(),'" + title + "')]")).click();
+        String searchResult = driver.findElement(By.xpath("//*[@itemprop='name']")).getText();
+        assertThat(searchResult).contains(title);
+    }
+    public void goToShoppingCart(){
+        driver.findElement(By.xpath("//*[@title='View my shopping cart']")).click();
     }
     public void maximizeWindow() {
         driver.manage().window().maximize();
