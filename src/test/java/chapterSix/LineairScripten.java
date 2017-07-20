@@ -1,9 +1,15 @@
 package chapterSix;
 
+import general.TestShopScenario;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,37 +17,43 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by Daniel on 19/07/2017.
  */
-public class LineairScripten {
-    public WebDriver driver;
+public class LineairScripten extends TestShopScenario{
+
     @Test
     public void logInSuccesFull(){
-        setUp();
         goToHomePage();
         goToLoginPage();
         loginFlow();
         assertSuccesfullLogin();
-        killDriver();
     }
     @Test
     public void logOutSuccesFull(){
-        setUp();
-        goToHomePage();
         maximizeWindow();
-        goToLoginPage();
-        loginFlow();
-        assertSuccesfullLogin();
-        goToHomePage();
+        logInSuccesFull();
         logoutFlow();
         assertSuccesfullLogout();
-        killDriver();
     }
-    public void setUp(){
-        ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
+
+    @Test
+    public void fillCartTest(){
+        goToHomePage();
+        maximizeWindow();
+        assertThat(checkNumberOfCartItems()).isEqualTo("0");
+
+
+    }
+    public String checkNumberOfCartItems(){
+        String number;
+
+        if(driver.findElement(By.className("ajax_cart_quantity")).isDisplayed() == true)
+            number = driver.findElement(By.className("ajax_cart_quantity")).getText();
+        else
+            number = "0";
+
+        return number;
     }
     public void goToHomePage(){
         driver.get("https://techblog.polteq.com/testshop/index.php");
-
     }
     public void goToLoginPage(){
         driver.findElement(By.className("login")).click();
@@ -67,8 +79,5 @@ public class LineairScripten {
     }
     public void maximizeWindow() {
         driver.manage().window().maximize();
-    }
-    public void killDriver(){
-        driver.quit();
     }
 }
