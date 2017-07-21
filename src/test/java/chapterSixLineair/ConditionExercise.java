@@ -1,4 +1,4 @@
-package chapterSix;
+package chapterSixLineair;
 
 import org.testng.annotations.Test;
 

@@ -1,4 +1,4 @@
-package chapterSix;
+package chapterSixLineair;
 
 import general.TestShopScenario;
 import org.openqa.selenium.By;
@@ -10,16 +10,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by Daniel on 21/07/2017.
  */
-public class FillCart extends TestShopScenario {
+public class EmptyCart extends TestShopScenario{
     @Test
-    public void fillCartTest(){
+    public void emptyCartTest(){
         maximizeWindow();
-        assertThat(checkNumberOfCartItems()).isEqualTo(0);
         clickOnTag("ipod");
         clickOnProductWithTitle("iPod shuffle");
         driver.findElement(By.id("add_to_cart")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span[title='Continue shopping']"))).click();
+        goToShoppingCart();
+        driver.findElement(By.className("icon-trash")).click();
         goToHomePage();
-        assertThat(checkNumberOfCartItems()).isEqualTo(1);
+        assertThat(checkNumberOfCartItems()).isEqualTo(0);
     }
 }

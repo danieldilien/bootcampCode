@@ -30,11 +30,12 @@ public class TestShopScenario {
         pwd = "Test123";
         driver.get("https://techblog.polteq.com/testshop/index.php");
     }
+    /*
     @AfterMethod
     public void killDriver() {
         driver.quit();
     }
-
+    */
     public int checkNumberOfCartItems(){
         String number;
 

@@ -1,4 +1,4 @@
-package chapterSix;
+package chapterSixLineair;
 
 import general.TestShopScenario;
 import org.testng.annotations.Test;
