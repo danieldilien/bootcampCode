@@ -13,12 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class EmptyCart extends TestShopScenario{
     @Test
     public void emptyCartTest(){
-        goToHomePage();
         maximizeWindow();
         clickOnTag("ipod");
         clickOnProductWithTitle("iPod shuffle");
         driver.findElement(By.id("add_to_cart")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='layer_cart']/div[1]/div[2]/div[4]/span/span"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("span[title='Continue shopping']"))).click();
         goToShoppingCart();
         driver.findElement(By.className("icon-trash")).click();
         goToHomePage();

@@ -15,7 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ValidateSupplierProduct extends TestShopScenario {
     @Test
     public void validateSupplierProductTest(){
-        goToHomePage();
         maximizeWindow();
         goToAppleSupplier();
         List<WebElement> elements = driver.findElements(By.xpath(".//*[@id='center_column']"));
@@ -25,5 +24,13 @@ public class ValidateSupplierProduct extends TestShopScenario {
                 macAir = true;
         }
         assertThat(macAir).isTrue();
+
+        /*
+        for(int i = 0; i < elements.size(); i++)
+        {
+            if(elements.get(i).getText().contains("MacBook Air"))
+                macAir = true;
+        }
+        */
     }
 }

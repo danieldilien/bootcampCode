@@ -28,6 +28,7 @@ public class TestShopScenario {
         wait = new WebDriverWait(driver, 5);
         email = "daniel.dilien@polteq.com";
         pwd = "Test123";
+        driver.get("https://techblog.polteq.com/testshop/index.php");
     }
     @AfterMethod
     public void killDriver() {
@@ -49,8 +50,7 @@ public class TestShopScenario {
         return Integer.parseInt(number);
     }
     public void goToHomePage(){
-        //Click on Home in the menu to go to homepage
-        driver.get("https://techblog.polteq.com/testshop/index.php");
+        driver.findElement(By.xpath("//*[@title='Home']")).click();
     }
     public void goToLoginPage(){
         driver.findElement(By.className("login")).click();
@@ -76,7 +76,7 @@ public class TestShopScenario {
     }
     public void clickOnTag(String tag){
         driver.findElement(By.xpath(".//*[@id='tags_block_left']/div/*[contains(text(), '" + tag + "')]")).click();
-        String searchResult = driver.findElement(By.xpath(".//*[@id='center_column']/h1/span[1]")).getText();
+        String searchResult = driver.findElement(By.xpath(".//*[@id='center_column']/*")).getText();
         assertThat(searchResult).contains(tag.toUpperCase());
     }
     public void clickOnProductWithTitle(String title){

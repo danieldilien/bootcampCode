@@ -13,7 +13,6 @@ public class ModifyPersonalInfo extends TestShopScenario {
 
     @Test
     public void modifyPersonalInfoTest(){
-        goToHomePage();
         maximizeWindow();
         goToLoginPage();
         loginFlow();

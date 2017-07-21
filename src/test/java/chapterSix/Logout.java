@@ -10,7 +10,6 @@ public class Logout extends TestShopScenario {
 
     @Test
     public void logOutSuccesFull(){
-        goToHomePage();
         maximizeWindow();
         goToLoginPage();
         loginFlow();

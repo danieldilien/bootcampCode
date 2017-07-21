@@ -9,7 +9,6 @@ import org.testng.annotations.Test;
 public class Login extends TestShopScenario{
     @Test
     public void logInSuccesFull(){
-        goToHomePage();
         maximizeWindow();
         goToLoginPage();
         loginFlow();
