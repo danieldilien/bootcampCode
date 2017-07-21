@@ -14,16 +14,14 @@ public class AutoAdvanced {
     public AutoAdvanced(String brand, int force, int engine){
         this.brand = brand;
         System.out.println("Car is ready to drive");
-        this.torque = calculateTorque(force,engine);
-
+        calculateTorque(force,engine);
     }
 
-    public double calculateTorque(int force, int engine){
-        return ((force * 5252) / engine);
-
+    public void calculateTorque(int force, int engine){
+        this.torque = ((force * 5252) / engine);
     }
     public void printTorque(){
-        System.out.println(torque);
+        System.out.println("Torque of the car is " + torque);
     }
     public void printBrand(){
         System.out.println("Brand of the car is " + brand);

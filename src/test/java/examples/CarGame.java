@@ -28,5 +28,11 @@ public class CarGame {
         AutoAdvanced autoAdvanced2 = new AutoAdvanced("Audi",10,252);
         autoAdvanced2.printBrand();
         autoAdvanced2.printTorque();
+        autoAdvanced2.calculateTorque(20,252);
+        autoAdvanced2.printTorque();
+
+        AutoAdvanced autoAdvanced3 = new AutoAdvanced("Toyota");
+        autoAdvanced3.printBrand();
+        autoAdvanced3.printTorque();
     }
 }
