@@ -29,13 +29,14 @@ public class TestShopScenario {
         email = "daniel.dilien@polteq.com";
         pwd = "Test123";
         driver.get("https://techblog.polteq.com/testshop/index.php");
+        maximizeWindow();
     }
-    /*
+
     @AfterMethod
     public void killDriver() {
-        driver.quit();
+        //driver.quit();
     }
-    */
+
     public int checkNumberOfCartItems(){
         String number;
 

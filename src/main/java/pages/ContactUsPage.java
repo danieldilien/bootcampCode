@@ -23,6 +23,8 @@ public class ContactUsPage {
     private WebElement messageField;
     @FindBy(id="submitMessage")
     private WebElement submitButton;
+    @FindBy(xpath ="//*[@class='alert alert-success']")
+    private WebElement alertMessage;
 
     public ContactUsPage(WebDriver driver){
         this.driver = driver;
@@ -30,15 +32,28 @@ public class ContactUsPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void fillInContactForm(String orderReference, String email, String message){
+    public void fillInContactForm(String subject, String email, String orderReference, String message){
+        //select subject with value 1
+        Select dropdown = new Select(subjectOption);
+        dropdown.selectByVisibleText(subject);
+
+        //Fill in email
         emailTextField.clear();
         emailTextField.sendKeys(email);
+
+        //Fill in order reference
         orderReferenceField.clear();
         orderReferenceField.sendKeys(orderReference);
+
+        //Fill in message
         messageField.clear();
         messageField.sendKeys(message);
-        Select dropdown = new Select(subjectOption);
-        dropdown.selectByValue("1");
+
+        //Submit the form
         submitButton.click();
+    }
+
+    public String getAlertMessage(){
+        return alertMessage.getText();
     }
 }
