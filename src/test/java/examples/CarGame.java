@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class CarGame {
 
     @Test
-    public void startGame(){
+    public void startGame1(){
         Auto auto1 = new Auto();
         auto1.setColor("Rood");
         System.out.println("The color of the car: " + auto1.getColor());
@@ -19,6 +19,14 @@ public class CarGame {
 
         Auto auto3 = new Auto();
         System.out.println("Torque: " + auto3.calculateTorque(10,5252));
+    }
+    @Test
+    public void startGame2(){
+        AutoAdvanced autoAdvanced1 = new AutoAdvanced("BMW");
+        autoAdvanced1.printBrand();
 
+        AutoAdvanced autoAdvanced2 = new AutoAdvanced("Audi",10,252);
+        autoAdvanced2.printBrand();
+        autoAdvanced2.printTorque();
     }
 }
