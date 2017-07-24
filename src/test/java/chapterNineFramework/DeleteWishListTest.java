@@ -47,6 +47,7 @@ public class DeleteWishListTest extends TestShopScenario{
         wishListPage.deleteWishListWithName(wishListToDelete);
         wishListPage.waitForWishlistToReload();
         assertThat(wishListPage.isWishListPresentWithName(wishListToDelete)).as("Wishlist is present").isFalse();
+        System.out.println("Delete successful");
 
         //Add again the wishlist to leave the test as before
         wishListPage.addNewWishlist(wishListToDelete);

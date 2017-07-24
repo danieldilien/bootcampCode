@@ -25,6 +25,8 @@ public class MyWishListPage {
     private WebElement saveButton;
     @FindBy(xpath = ".//*[@id='block-history']/table/tbody")
     private WebElement wishListTable;
+    @FindBy(xpath = ".//*[@id='block-history']/table/thead/tr/th")
+    private List<WebElement> wishListHeaderRow;
     private Alert alertWindow;
 
     private List<WebElement> rows;
@@ -65,11 +67,12 @@ public class MyWishListPage {
 
     public boolean isWishListPresentWithName (String searchWishListName)
     {
+        int columnNumberOfName = getColumnNumberWithText("Name");
         rows = wishListTable.findElements(By.tagName("tr"));
         String wishListName;
         boolean wishListPresent=false;
         for(int rnum=0;rnum<rows.size();rnum++){
-            wishListName = rows.get(rnum).findElement(By.xpath("td[1]/a")).getText();
+            wishListName = rows.get(rnum).findElement(By.xpath("td["+columnNumberOfName+"]/a")).getText();
             if(wishListName.contains(searchWishListName))
             {
                 wishListPresent = true;
@@ -80,8 +83,9 @@ public class MyWishListPage {
     }
 
     public void deleteWishListWithName(String searchWishListName){
+        int columnNumberOfDelete = getColumnNumberWithText("Delete");
         int rowToDelete = getRowOfWishListWithName(searchWishListName);
-        rows.get(rowToDelete).findElement(By.xpath("td[7]/a/i")).click();
+        rows.get(rowToDelete).findElement(By.xpath("td["+columnNumberOfDelete+"]/a/i")).click();
         alertWindow = driver.switchTo().alert();
         wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
@@ -90,6 +94,20 @@ public class MyWishListPage {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {}
+    }
+
+    public int getColumnNumberWithText (String headerSearchText){
+
+        int columnOfHeader=100;
+        for(int columns = 0 ; columns<wishListHeaderRow.size();columns++) {
+            String headerText = wishListHeaderRow.get(columns).getText();
+            if(headerText.contains(headerSearchText))
+            {
+                columnOfHeader = columns + 1;
+                break;
+            }
+        }
+        return columnOfHeader;
     }
 
 
