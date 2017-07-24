@@ -25,6 +25,10 @@ public class HomePage {
     @FindBy(className="login")
     private WebElement loginText;
 
+    @FindBy(xpath = "//*[@title='View my customer account']")
+    private WebElement myAccountLink;
+
+
 
     public HomePage(WebDriver driver){
         this.driver = driver;
@@ -54,6 +58,10 @@ public class HomePage {
     }
     public void logOut(){
         logoutText.click();
+    }
+
+    public void goToMyAccountPage(){
+        myAccountLink.click();
     }
 
 }
