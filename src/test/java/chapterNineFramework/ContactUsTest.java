@@ -15,17 +15,20 @@ public class ContactUsTest extends TestShopScenario{
 
     @Test
     public void contactUsTest(){
-        //Go to contactpage
-        HomePage home = new HomePage(driver);
+        ////Set all pages
+        HomePage home = new HomePage(driver,wait);
+        ContactUsPage contactPage = new ContactUsPage(driver,wait);
+
+        //Go to the contact us-page
         home.goToContactUsPage();
-
-        //Fill in fields and submit
-        ContactUsPage contactPage = new ContactUsPage(driver);
+        //Fill in the contact form and submit
         contactPage.fillInContactForm("Customer service", "bootcamper@feelthepain.com","4321234 ","Ipod defect while lifting, need new one");
-
-        //Validate the alert message
+        //Validate message was sent
         assertThat(contactPage.getAlertMessage()).contains("Your message has been successfully sent to our team.");
+
+        //Leave test as before
+        home.goToHomePage();
+
+        System.out.println("Test successful: Contact Us");
     }
-
-
 }

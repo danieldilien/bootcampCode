@@ -6,12 +6,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Daniel on 21/07/2017.
  */
 public class ContactUsPage {
+
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(css = "select#id_contact")
     private WebElement subjectOption;
@@ -26,12 +29,12 @@ public class ContactUsPage {
     @FindBy(xpath ="//*[@class='alert alert-success']")
     private WebElement alertMessage;
 
-    public ContactUsPage(WebDriver driver){
+    public ContactUsPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
+        this.wait = wait;
         //This call sets the Webelements
         PageFactory.initElements(driver, this);
     }
-
     public void fillInContactForm(String subject, String email, String orderReference, String message){
         //select subject with value 1
         Select dropdown = new Select(subjectOption);
@@ -52,7 +55,6 @@ public class ContactUsPage {
         //Submit the form
         submitButton.click();
     }
-
     public String getAlertMessage(){
         return alertMessage.getText();
     }

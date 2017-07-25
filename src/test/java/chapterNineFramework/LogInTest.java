@@ -14,16 +14,28 @@ public class LogInTest extends TestShopScenario{
 
     @Test
     public void signInTest(){
-        HomePage home = new HomePage(driver);
-        home.goToLoginPage();
-        AuthenticationPage authPage = new AuthenticationPage(driver);
-        // authPage.logInWithEmailAndPwd("daniel.dilien@polteq.com","Test123");
+        //Set all pages
+        HomePage home = new HomePage(driver,wait);
+        AuthenticationPage authPage = new AuthenticationPage(driver,wait);
+
+        //Make sure nobody is logged in
         if(home.isUserLoggedIn()==true)
-        {
             home.logOut();
-        }
+
+        //Go to login-page
+        home.goToLoginPage();
+
+        //Login with e-mail and pwd
         authPage.logInWithEmailAndPwd("daniel.dilien@polteq.com","Test123");
+
+        //Validate login was successful
+        assertThat(home.isUserLoggedIn()).as("User is logged in").isTrue();
+
+        //Leave test as before
+        home.logOut();
+        assertThat(home.isUserLoggedIn()).as("User is not logged in").isFalse();
         home.goToHomePage();
-        assertThat(home.isUserLoggedIn()).as("User is ingelogd").isTrue();
+
+        System.out.println("Test successful: Login");
     }
 }

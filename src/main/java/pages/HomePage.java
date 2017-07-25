@@ -6,12 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Created by Daniel on 21/07/2017.
  */
 public class HomePage {
+
     private WebDriver driver;
+    private WebDriverWait wait;
 
     @FindBy(className = "login")
     private WebElement login;
@@ -19,19 +22,16 @@ public class HomePage {
     private WebElement contactUs;
     @FindBy(xpath = "//*[@title='Home']")
     private WebElement homePage;
-
     @FindBy(className="logout")
     private WebElement logoutText;
     @FindBy(className="login")
     private WebElement loginText;
-
     @FindBy(xpath = "//*[@title='View my customer account']")
     private WebElement myAccountLink;
 
-
-
-    public HomePage(WebDriver driver){
+    public HomePage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
+        this.wait = wait;
         //This call sets the Webelements
         PageFactory.initElements(driver, this);
     }
@@ -59,9 +59,7 @@ public class HomePage {
     public void logOut(){
         logoutText.click();
     }
-
     public void goToMyAccountPage(){
         myAccountLink.click();
     }
-
 }

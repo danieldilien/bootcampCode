@@ -28,7 +28,6 @@ public class MyWishListPage {
     @FindBy(xpath = ".//*[@id='block-history']/table/thead/tr/th")
     private List<WebElement> wishListHeaderRow;
     private Alert alertWindow;
-
     private List<WebElement> rows;
 
     public MyWishListPage(WebDriver driver, WebDriverWait wait){
@@ -38,19 +37,12 @@ public class MyWishListPage {
         PageFactory.initElements(driver, this);
 
     }
-
-    public void addNewWishlist (String nameOfWishList)
-    {
+    public void addNewWishlist (String nameOfWishList){
         wishListInputName.clear();
         wishListInputName.sendKeys(nameOfWishList);
         saveButton.click();
     }
-
-    public int getRowsSize(){
-        return rows.size();
-    }
-    public int getRowOfWishListWithName (String searchWishListName)
-    {
+    public int getRowOfWishListWithName (String searchWishListName){
         rows = wishListTable.findElements(By.tagName("tr"));
         String wishListName;
         int rowOfWishListName=100;
@@ -64,9 +56,7 @@ public class MyWishListPage {
         }
         return rowOfWishListName;
     }
-
-    public boolean isWishListPresentWithName (String searchWishListName)
-    {
+    public boolean isWishListPresentWithName (String searchWishListName){
         int columnNumberOfName = getColumnNumberWithText("Name");
         rows = wishListTable.findElements(By.tagName("tr"));
         String wishListName;
@@ -81,21 +71,18 @@ public class MyWishListPage {
         }
         return wishListPresent;
     }
-
     public void deleteWishListWithName(String searchWishListName){
         int columnNumberOfDelete = getColumnNumberWithText("Delete");
         int rowToDelete = getRowOfWishListWithName(searchWishListName);
-        rows.get(rowToDelete).findElement(By.xpath("td["+columnNumberOfDelete+"]/a/i")).click();
+        rows.get(rowToDelete).findElement(By.xpath("td["+columnNumberOfDelete+"]/a")).click();
         alertWindow = driver.switchTo().alert();
         wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
-
     public void waitForWishlistToReload(){
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {}
     }
-
     public int getColumnNumberWithText (String headerSearchText){
 
         int columnOfHeader=100;
@@ -109,6 +96,4 @@ public class MyWishListPage {
         }
         return columnOfHeader;
     }
-
-
 }
