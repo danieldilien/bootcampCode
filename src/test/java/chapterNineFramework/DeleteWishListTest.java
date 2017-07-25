@@ -36,22 +36,15 @@ public class DeleteWishListTest extends TestShopScenario{
         //Go to my wishlist-page
         myAccountPage.goToMyWishList();
 
-        //Add wishlist if it's not present
-        if(wishListPage.isWishListPresentWithName(wishListToDelete) == false){
-            wishListPage.addNewWishlist(wishListToDelete);
-            wishListPage.waitForWishlistToReload();
-            assertThat(wishListPage.isWishListPresentWithName(wishListToDelete)).as("Wishlist is present").isTrue();
-        }
-
         //Delete wishlist and validate
         wishListPage.deleteWishListWithName(wishListToDelete);
         wishListPage.waitForWishlistToReload();
-        assertThat(wishListPage.isWishListPresentWithName(wishListToDelete)).as("Wishlist is present").isFalse();
+        assertThat(wishListPage.isWishListPresent(wishListToDelete)).as("Wishlist is present").isFalse();
 
         //Leave test as before
         wishListPage.addNewWishlist(wishListToDelete);
         wishListPage.waitForWishlistToReload();
-        assertThat(wishListPage.isWishListPresentWithName(wishListToDelete)).as("Wishlist is present").isTrue();
+        assertThat(wishListPage.isWishListPresent(wishListToDelete)).as("Wishlist is present").isTrue();
         home.logOut();
         home.goToHomePage();
 

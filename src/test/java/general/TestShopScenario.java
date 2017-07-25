@@ -31,10 +31,9 @@ public class TestShopScenario {
         driver.get("https://techblog.polteq.com/testshop/index.php");
         maximizeWindow();
     }
-
     @AfterMethod
     public void killDriver() {
-        //driver.quit();
+        driver.quit();
     }
 
     public int checkNumberOfCartItems(){
