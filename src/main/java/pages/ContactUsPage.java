@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -28,6 +29,8 @@ public class ContactUsPage {
     private WebElement submitButton;
     @FindBy(xpath ="//*[@class='alert alert-success']")
     private WebElement alertMessage;
+    @FindBy(css = "div.alert.alert-danger")
+    private WebElement errorMessage;
 
     public ContactUsPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
@@ -57,5 +60,9 @@ public class ContactUsPage {
     }
     public String getAlertMessage(){
         return alertMessage.getText();
+    }
+    public String getErrorMessage(){
+        String error = wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
+        return error;
     }
 }
