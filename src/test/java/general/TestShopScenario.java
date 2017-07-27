@@ -1,5 +1,9 @@
 package general;
 
+import browser.BrowserFactoryAdvanced;
+import browser.BrowserFactoryBasic;
+import browser.BrowserFactoryMedior;
+import com.sun.xml.internal.bind.v2.TODO;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -28,12 +32,13 @@ public class TestShopScenario {
     @BeforeMethod
     public void setUpChromeDriver(){
         ChromeDriverManager.getInstance().setup();
-        driver = new ChromeDriver();
+        driver = BrowserFactoryAdvanced.getDriver(BrowserFactoryAdvanced.Browser.CHROME);
         wait = new WebDriverWait(driver, 5);
         email = "daniel.dilien@polteq.com";
         pwd = "Test123";
         driver.get("https://techblog.polteq.com/testshop/index.php");
-        maximizeWindow();
+
+//        maximizeWindow();
     }
     @AfterMethod
     public void killDriver() {
@@ -108,5 +113,4 @@ public class TestShopScenario {
     public void maximizeWindow() {
         driver.manage().window().maximize();
     }
-
 }
