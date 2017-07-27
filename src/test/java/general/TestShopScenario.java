@@ -42,7 +42,7 @@ public class TestShopScenario {
     }
     @AfterMethod
     public void killDriver() {
-       driver.quit();
+//       driver.quit();
     }
 
     public int checkNumberOfCartItems(){

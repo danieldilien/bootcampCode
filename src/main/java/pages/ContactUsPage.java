@@ -31,6 +31,8 @@ public class ContactUsPage {
     private WebElement alertMessage;
     @FindBy(css = "div.alert.alert-danger")
     private WebElement errorMessage;
+    @FindBy(xpath ="//*[@class='form-group form-error']")
+    private WebElement errorInText;
 
     public ContactUsPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
@@ -54,8 +56,8 @@ public class ContactUsPage {
         //Fill in message
         messageField.clear();
         messageField.sendKeys(message);
-
-        //Submit the form
+    }
+    public void saveForm(){
         submitButton.click();
     }
     public String getAlertMessage(){
@@ -63,6 +65,15 @@ public class ContactUsPage {
     }
     public String getErrorMessage(){
         String error = wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
+        return error;
+    }
+    public boolean errorOnPage(){
+        boolean error;
+        try{
+            error = errorInText.isEnabled();
+        }catch(Exception e){
+            error = false;
+        }
         return error;
     }
 }

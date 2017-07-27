@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -21,6 +22,8 @@ public class AuthenticationPage {
     private WebElement pwdField;
     @FindBy(id="SubmitLogin")
     private WebElement signInButton;
+    @FindBy(css = "div.alert.alert-danger")
+    private WebElement errorMessage;
 
     public AuthenticationPage(WebDriver driver, WebDriverWait wait){
         this.driver = driver;
@@ -32,5 +35,9 @@ public class AuthenticationPage {
         emailField.sendKeys(email);
         pwdField.sendKeys(pwd);
         signInButton.click();
+    }
+    public String getErrorMessage(){
+        String error = wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
+        return error;
     }
 }
