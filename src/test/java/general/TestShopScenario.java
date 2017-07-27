@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.FileInputStream;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -20,6 +22,8 @@ public class TestShopScenario {
     protected WebDriverWait wait;
     protected String email;
     protected String pwd;
+    public static final String Path_TestData = "C://Users//Daniel//Documents//Summer Automation Bootcamp//Test Data";
+    public static final String File_TestData = "TestData.xlsx";
 
     @BeforeMethod
     public void setUpChromeDriver(){
@@ -33,7 +37,7 @@ public class TestShopScenario {
     }
     @AfterMethod
     public void killDriver() {
-       //driver.quit();
+       driver.quit();
     }
 
     public int checkNumberOfCartItems(){
@@ -104,4 +108,5 @@ public class TestShopScenario {
     public void maximizeWindow() {
         driver.manage().window().maximize();
     }
+
 }

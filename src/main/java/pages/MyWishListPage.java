@@ -1,5 +1,6 @@
 package pages;
 
+import org.apache.commons.logging.Log;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.List;
 
 /**
@@ -41,6 +41,7 @@ public class MyWishListPage {
         wishListInputName.clear();
         wishListInputName.sendKeys(nameOfWishList);
         saveButton.click();
+        wait.until(ExpectedConditions.textToBePresentInElement(wishListTableBody,nameOfWishList));
     }
     public void deleteWishListWithName(String searchWishListName){
         int columnNumberOfDelete = getColumnNumberWithText("Delete");
@@ -48,6 +49,7 @@ public class MyWishListPage {
             rows.get(wishListRow).findElement(By.xpath("td[" + columnNumberOfDelete + "]/a")).click();
             alertWindow = driver.switchTo().alert();
             wait.until(ExpectedConditions.alertIsPresent()).accept();
+            wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(wishListTableBody,searchWishListName)));
         }
         else{
             addNewWishlist(searchWishListName);
@@ -58,7 +60,6 @@ public class MyWishListPage {
         int columnNumberOfName = getColumnNumberWithText("Name");
         rows = wishListTableBody.findElements(By.tagName("tr"));
         boolean wishListPresent = false;
-
         for (int rnum = 0; rnum < rows.size(); rnum++) {
             String wishListName = rows.get(rnum).findElement(By.xpath("td[" + columnNumberOfName + "]/a")).getText();
             if (wishListName.contains(searchWishListName)) {
@@ -80,11 +81,11 @@ public class MyWishListPage {
                 break;
             }
         }
+
+        if (columnOfHeader == 0)
+            System.out.println("Headername '" + headerSearchText + "' not found!");
+
         return columnOfHeader;
-    }
-    public void waitForWishlistToReload(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {}
+
     }
 }
