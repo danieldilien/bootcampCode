@@ -1,6 +1,7 @@
 package chapterNineFramework;
 
 import general.TestShopScenario;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.AuthenticationPage;
 import pages.HomePage;
@@ -11,9 +12,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by Daniel on 21/07/2017.
  */
 public class LogInTest extends TestShopScenario{
-
+    @Parameters({"username", "pwd"})
     @Test
-    public void signInTest(){
+    public void signInTest(String username, String pwd){
         //Set all pages
         HomePage home = new HomePage(driver,wait);
         AuthenticationPage authPage = new AuthenticationPage(driver,wait);
@@ -26,7 +27,7 @@ public class LogInTest extends TestShopScenario{
         home.goToLoginPage();
 
         //Login with e-mail and pwd
-        authPage.logInWithEmailAndPwd("daniel.dilien@polteq.com","Test123");
+        authPage.logInWithEmailAndPwd(username,pwd);
 
         //Validate login was successful
         assertThat(home.isUserLoggedIn()).as("User is logged in").isTrue();

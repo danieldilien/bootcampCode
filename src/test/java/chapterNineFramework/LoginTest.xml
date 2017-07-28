@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="none" >
+        <test name="loginTest1" >
+            <parameter name="username" value="heavylifter@feelthepain.com" />
+            <parameter name="pwd" value="xsw21qaz" />
+            <classes>
+                <class name="chapterNineFramework.LogInTest" />
+            </classes>
+        </test>
+    <test name="loginTest2" >
+        <parameter name="username" value="hipster@tester.com" />
+        <parameter name="pwd" value="pswpsw123" />
+        <classes>
+            <class name="chapterNineFramework.LogInTest" />
+        </classes>
+    </test>
+    <test name="loginTest3" >
+        <parameter name="username" value="feelfit@nopainnogain.com" />
+        <parameter name="pwd" value="password" />
+        <classes>
+            <class name="chapterNineFramework.LogInTest" />
+        </classes>
+    </test>
+    <test name="loginTest4" >
+        <parameter name="username" value="test@guru.com" />
+        <parameter name="pwd" value="asdfghjk" />
+        <classes>
+            <class name="chapterNineFramework.LogInTest" />
+        </classes>
+    </test>
+    <test name="loginTest5" >
+        <parameter name="username" value="cross@fit.com" />
+        <parameter name="pwd" value="crossfit" />
+        <classes>
+            <class name="chapterNineFramework.LogInTest" />
+        </classes>
+    </test>
+</suite>
