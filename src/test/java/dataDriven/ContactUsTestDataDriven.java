@@ -1,7 +1,6 @@
-package chapterNineFramework;
+package dataDriven;
 
 import general.TestShopScenario;
-import org.openqa.selenium.By;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import pages.ContactUsPage;
@@ -12,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by Daniel on 21/07/2017.
  */
-public class ContactUsTest extends TestShopScenario{
+public class ContactUsTestDataDriven extends TestShopScenarioDataDriven{
 
     @Parameters({"subject", "email", "orderID","message"})
     @Test
